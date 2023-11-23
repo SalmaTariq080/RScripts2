@@ -1,0 +1,6 @@
+setwd("E:\\BreastCancer_Project")
+data <- read.csv("Unknowngenes.csv")
+library("biomaRt")
+mart=useMart(biomart = "ensembl", dataset = "hsapiens_gene_ensembl")
+mapping <- getBM(attributes=c("hgnc_symbol", "ensembl_gene_id", "refseq_mrna"), filters = "hgnc_id", mart=mart, values=data$gene_id, uniqueRows=TRUE, bmHeader = T)
+mapping <- subset(mapping, select = -HGNC)
